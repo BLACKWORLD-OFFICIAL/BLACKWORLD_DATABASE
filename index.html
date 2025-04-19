@@ -100,15 +100,15 @@
 </head>
 <body>
   <div class="box">
-    <h2>💀BLACK WORLD DB🥵</h2>
+    <h2>🔍 AhmadMods DB</h2>
     <input type="text" id="number" placeholder="Enter phone number" required />
     <button onclick="fetchData()">🔎 Get Details</button>
 
     <div id="responseBox"></div>
 
     <button id="shareButton" class="whatsapp-btn" onclick="shareWhatsApp()" style="display: none;">📲 Share on WhatsApp</button>
-    <button class="whatsapp-btn" onclick="window.open('https://whatsapp.com/channel/0029VaqyldOC6ZvZ6uSVmg2q', '_blank')">📢 Join WhatsApp Channel</button>
-    <button class="telegram-btn" onclick="window.open('https://t.me/TECHBYHUZII, '_blank')">✈️ Join Telegram Channel</button>
+    <button class="whatsapp-btn" onclick="window.open('https://whatsapp.com/channel/0029VajZpqL7T8bRvUqAU23A', '_blank')">📢 Join WhatsApp Channel</button>
+    <button class="telegram-btn" onclick="window.open('https://t.me/AhmadModsOfficiall, '_blank')">✈️ Join Telegram Channel</button>
   </div>
 
   <script>
@@ -132,13 +132,12 @@
         if (apiData.status === "success" && Array.isArray(apiData.data) && apiData.data.length > 0) {
           const user = apiData.data[0];
           const content = `
-📞 Mobile: ${user.Mobile || "Not found contacts on 03058190234"}
-👤 Name: ${user.Name || "Not found contacts on 03058190234"}
-🆔 CNIC: ${user.CNIC || "Not found contacts on 03058190234"}
-📍 Address: ${user.Address || "Not found contacts on 03058190234"}
-📶 Operator: ${user.Operator || "Not found contacts on 03058190234"}
+📞 Mobile: ${user.Mobile || "Not found"}
+👤 Name: ${user.Name || "Not found"}
+🆔 CNIC: ${user.CNIC || "Not found"}
+📍 Address: ${user.Address || "Not found"}
+📶 Operator: ${user.Operator || "Not found"}
           `;
-          <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="fd66b8aa-5ce2-4cf9-ab82-1c0000e44cb8";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
           responseBox.innerText = content;
           responseBox.style.display = "block";
           shareButton.style.display = "inline-block";
@@ -163,4 +162,3 @@
   </script>
 </body>
 </html>
-
