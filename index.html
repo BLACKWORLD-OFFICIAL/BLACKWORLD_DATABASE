@@ -4,8 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pak Sim Data</title>
-  <link href="https://fonts.googleapis.com/css2?family=Overthrow+Oligarchy&family=Sport+Game&family=Gamesome&family=Super+Guardian&family=Outfielder&family=Task+Force&family=Esportiva&display=swap" rel="stylesheet">
   <style>
+    /* === Custom Fonts from Dafont (Embedded) === */
+    @font-face {
+      font-family: 'Overthrow Oligarchy';
+      src: url('YOUR-FONT-URL-HERE/Overthrow-Oligarchy.woff2') format('woff2'),
+           url('YOUR-FONT-URL-HERE/Overthrow-Oligarchy.woff') format('woff');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Sport Game';
+      src: url('YOUR-FONT-URL-HERE/Sport-Game.woff2') format('woff2'),
+           url('YOUR-FONT-URL-HERE/Sport-Game.woff') format('woff');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Super Guardian';
+      src: url('YOUR-FONT-URL-HERE/Super-Guardian.woff2') format('woff2'),
+           url('YOUR-FONT-URL-HERE/Super-Guardian.woff') format('woff');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Outfielder';
+      src: url('YOUR-FONT-URL-HERE/Outfielder.woff2') format('woff2'),
+           url('YOUR-FONT-URL-HERE/Outfielder.woff') format('woff');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Task Force';
+      src: url('YOUR-FONT-URL-HERE/Task-Force.woff2') format('woff2'),
+           url('YOUR-FONT-URL-HERE/Task-Force.woff') format('woff');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Esportiva';
+      src: url('YOUR-FONT-URL-HERE/Esportiva.woff2') format('woff2'),
+           url('YOUR-FONT-URL-HERE/Esportiva.woff') format('woff');
+      font-display: swap;
+    }
+
+    /* === Main CSS (Same Styling as Before) === */
     body {
       background: linear-gradient(90deg, #141e30, #243b55);
       background-size: 400% 400%;
@@ -19,13 +57,11 @@
       min-height: 100vh;
       color: white;
     }
-
     @keyframes backgroundAnimate {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
     .container {
       background: rgba(0, 0, 0, 0.3);
       border-radius: 15px;
@@ -36,14 +72,12 @@
       text-align: center;
       backdrop-filter: blur(10px);
     }
-
     h1 {
-      font-family: 'Overthrow Oligarchy', sans-serif;
+      font-family: 'Overthrow Oligarchy', fantasy;
       font-size: 32px;
       margin-bottom: 20px;
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
     }
-
     input[type="text"] {
       width: 80%;
       padding: 12px;
@@ -54,9 +88,8 @@
       margin: 10px 0;
       font-size: 16px;
     }
-
     button {
-      font-family: 'Super Guardian', sans-serif;
+      font-family: 'Super Guardian', fantasy;
       background: rgba(255, 0, 0, 0.8);
       color: white;
       padding: 12px 20px;
@@ -68,14 +101,12 @@
       width: 50%;
       animation: buttonGlow 2s infinite alternate;
     }
-
     @keyframes buttonGlow {
       0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
       100% { box-shadow: 0 0 20px rgba(255, 0, 0, 1); }
     }
-
     .result {
-      font-family: 'Task Force', sans-serif;
+      font-family: 'Task Force', monospace;
       margin-top: 20px;
       background: rgba(0, 0, 0, 0.7);
       padding: 20px;
@@ -85,16 +116,14 @@
       white-space: pre-line;
       display: none;
     }
-
     .share-btn {
-      font-family: 'Esportiva', sans-serif;
+      font-family: 'Esportiva', cursive;
       margin-top: 10px;
       background: linear-gradient(90deg, #25D366, #128C7E);
       box-shadow: 0 0 10px #25D366;
       color: white;
       display: none;
     }
-
     .footer {
       margin-top: 50px;
       padding: 20px;
@@ -103,17 +132,15 @@
       box-shadow: 0 -5px 20px #0ff;
       width: 100%;
     }
-
     .footer h2 {
-      font-family: 'Outfielder', sans-serif;
+      font-family: 'Outfielder', fantasy;
       font-size: 1.5rem;
       color: #0ff;
       text-shadow: 0 0 10px #0ff;
       margin-bottom: 10px;
     }
-
     .social-links a {
-      font-family: 'Gamesome', sans-serif;
+      font-family: 'Super Guardian', fantasy; /* Gamesome not available */
       display: inline-block;
       margin: 5px;
       padding: 10px 15px;
@@ -125,21 +152,18 @@
       box-shadow: 0 0 15px #0ff;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
     .social-links a:hover {
       transform: scale(1.1);
       box-shadow: 0 0 25px #0ff;
       background: #08f;
     }
-
     .developer {
       margin-top: 15px;
       font-size: 0.9rem;
       color: yellow;
     }
-
     .developer span {
-      font-family: 'Sport Game', sans-serif;
+      font-family: 'Sport Game', fantasy;
       font-size: 1.5rem;
       color: red;
       text-shadow: 0 0 10px red;
@@ -178,7 +202,6 @@
         return;
       }
 
-      // API URL (Replace if needed)
       const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://fam-official.serv00.net/sim/api.php?num=${number}`)}`;
 
       try {
