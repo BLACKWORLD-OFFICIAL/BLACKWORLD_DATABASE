@@ -10,6 +10,7 @@
       --secondary-color: #0f0f0f;
       --card-bg: #111;
       --text-color: #fff;
+      --accent-color: #ff00f7;
     }
     
     body {
@@ -20,21 +21,38 @@
       padding: 20px;
       max-width: 1200px;
       margin: 0 auto;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(0, 247, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 0, 247, 0.1) 0%, transparent 50%);
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--primary-color);
-      text-shadow: 0 0 10px var(--primary-color);
+      text-shadow: 0 0 15px var(--primary-color);
       margin-bottom: 30px;
+      position: relative;
+      display: inline-block;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 3px;
     }
 
     .input-container {
-      background: rgba(17, 17, 17, 0.8);
-      padding: 25px;
+      background: rgba(17, 17, 17, 0.9);
+      padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 247, 255, 0.2);
-      margin-bottom: 30px;
+      box-shadow: 0 0 25px rgba(0, 247, 255, 0.3);
+      margin-bottom: 40px;
+      border: 1px solid rgba(0, 247, 255, 0.2);
     }
 
     .input-group {
@@ -47,125 +65,189 @@
     }
 
     input, select, button {
-      padding: 12px 15px;
+      padding: 14px 20px;
       border: none;
-      border-radius: 8px;
-      font-size: 1rem;
+      border-radius: 10px;
+      font-size: 1.1rem;
       outline: none;
       transition: all 0.3s ease;
     }
 
     input {
       flex: 1;
-      min-width: 250px;
+      min-width: 300px;
       background: #222;
       color: var(--text-color);
+      border: 1px solid rgba(0, 247, 255, 0.3);
     }
 
     input:focus {
-      box-shadow: 0 0 10px var(--primary-color);
+      box-shadow: 0 0 15px var(--primary-color);
+      border-color: var(--primary-color);
     }
 
     select {
       background: var(--card-bg);
       color: var(--primary-color);
-      min-width: 150px;
+      min-width: 180px;
+      border: 1px solid rgba(0, 247, 255, 0.3);
+      cursor: pointer;
+    }
+
+    select:focus {
+      box-shadow: 0 0 15px var(--primary-color);
     }
 
     button {
-      background: var(--primary-color);
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
       color: black;
       cursor: pointer;
       font-weight: bold;
-      box-shadow: 0 0 10px var(--primary-color);
-      min-width: 150px;
+      box-shadow: 0 0 15px var(--primary-color);
+      min-width: 180px;
+      font-size: 1.1rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+      transition: all 0.4s ease;
+      z-index: -1;
     }
 
     button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 15px var(--primary-color);
+      box-shadow: 0 0 25px var(--primary-color);
     }
 
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
+    button:hover::before {
+      left: 0;
     }
 
     .loading {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: var(--primary-color);
-      margin: 30px 0;
+      margin: 40px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 20px;
     }
 
-    .spinner {
-      border: 4px solid rgba(0, 247, 255, 0.3);
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(0, 247, 255, 0.2);
+      border-top-color: var(--primary-color);
       border-radius: 50%;
-      border-top: 4px solid var(--primary-color);
-      width: 40px;
-      height: 40px;
       animation: spin 1s linear infinite;
-      margin: 20px 0;
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      to { transform: rotate(360deg); }
     }
 
     .image-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      margin-top: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
     }
 
     .image-box {
       background: var(--card-bg);
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 0 10px rgba(0, 247, 255, 0.2);
-      transition: transform 0.3s ease;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
+      transition: all 0.4s ease;
+      border: 1px solid rgba(0, 247, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .image-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent, transparent,
+        rgba(0, 247, 255, 0.1), transparent, transparent
+      );
+      transform: rotate(30deg);
+      transition: all 0.6s ease;
     }
 
     .image-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
+      transform: translateY(-10px);
+      box-shadow: 0 0 25px rgba(0, 247, 255, 0.5);
+    }
+
+    .image-box:hover::before {
+      left: 100%;
     }
 
     .image-box img {
       width: 100%;
-      border-radius: 8px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      aspect-ratio: var(--img-ratio);
+      object-fit: cover;
+      margin-bottom: 15px;
+      transition: all 0.4s ease;
+    }
+
+    .image-box:hover img {
+      transform: scale(1.02);
     }
 
     .download-btn {
       display: inline-block;
-      background: var(--primary-color);
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
       color: black;
-      padding: 8px 15px;
-      border-radius: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
-      box-shadow: 0 0 8px var(--primary-color);
+      box-shadow: 0 0 10px var(--primary-color);
       transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
     }
 
     .download-btn:hover {
-      background: #00d8e0;
+      background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+      box-shadow: 0 0 15px var(--primary-color);
+      transform: translateY(-2px);
     }
 
-    .error {
-      color: #ff5555;
-      margin: 20px 0;
+    .ratio-indicator {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: var(--primary-color);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
       
       .input-group {
@@ -175,7 +257,11 @@
       
       input, select, button {
         width: 100%;
-        margin: 5px 0;
+        margin: 8px 0;
+      }
+
+      .image-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -189,26 +275,26 @@
       <input type="text" id="prompt" placeholder="Describe the image you want to generate..." />
       <select id="ratio">
         <option value="1:1">Square (1:1)</option>
-        <option value="16:9">YouTube (16:9)</option>
-        <option value="9:16">TikTok (9:16)</option>
+        <option value="16:9">Widescreen (16:9)</option>
+        <option value="9:16">Portrait (9:16)</option>
         <option value="4:3">Classic (4:3)</option>
+        <option value="3:4">Vertical (3:4)</option>
       </select>
-      <button id="generateBtn" onclick="generateImages()">Generate Images</button>
+      <button onclick="generateImages()">Generate Images</button>
     </div>
   </div>
 
   <div class="image-grid" id="imageGrid"></div>
 
   <script>
-    // Better API endpoints with aspect ratio support
-    const API_ENDPOINTS = [
-      "https://image.pollinations.ai/prompt",
-      "https://aiimagegenerator.azurewebsites.net/api/generateimage"
-    ];
-
-    function getAspectRatioDimensions(ratio) {
-      const [width, height] = ratio.split(':').map(Number);
-      return { width, height };
+    // Preload images for better performance
+    function preloadImage(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => resolve(url);
+        img.onerror = () => reject(url);
+      });
     }
 
     async function generateImages() {
@@ -220,84 +306,65 @@
 
       const ratio = document.getElementById('ratio').value;
       const grid = document.getElementById('imageGrid');
-      const generateBtn = document.getElementById('generateBtn');
       
-      generateBtn.disabled = true;
+      // Show loading state
       grid.innerHTML = `
         <div class="loading">
-          <div class="spinner"></div>
-          Generating your images... Please wait
+          <div class="loading-spinner"></div>
+          Generating your images...<br>
+          This usually takes 10-20 seconds
         </div>
       `;
 
       try {
-        const { width, height } = getAspectRatioDimensions(ratio);
-        const aspectRatio = width / height;
+        // Calculate aspect ratio for CSS
+        const [w, h] = ratio.split(':').map(Number);
+        const aspectRatio = w / h;
         
-        const generatedImages = [];
-        const promises = [];
+        // Generate unique seeds for each image
+        const seeds = Array.from({length: 4}, () => Math.floor(Math.random() * 10000));
         
-        // Generate 4 images in parallel for better performance
-        for (let i = 0; i < 4; i++) {
-          const apiIndex = i % API_ENDPOINTS.length; // Alternate between APIs
-          const apiUrl = API_ENDPOINTS[apiIndex];
-          
-          let imgUrl;
-          if (apiUrl.includes('pollinations')) {
-            imgUrl = `${apiUrl}/${encodeURIComponent(prompt)}?seed=${Math.floor(Math.random() * 1000)}&width=${width * 100}&height=${height * 100}`;
-          } else {
-            imgUrl = `${apiUrl}?prompt=${encodeURIComponent(prompt)}&width=${width * 512}&height=${height * 512}`;
-          }
-          
-          promises.push(
-            new Promise((resolve) => {
-              const img = new Image();
-              img.onload = () => resolve(img.src);
-              img.onerror = () => resolve(null);
-              img.src = imgUrl;
-            })
-          );
+        // Create image URLs with proper ratio handling
+        const imageUrls = seeds.map(seed => {
+          return `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?seed=${seed}&width=${w * 100}&height=${h * 100}`;
+        });
+
+        // Preload all images
+        const preloaded = await Promise.all(imageUrls.map(url => preloadImage(url).catch(() => null)));
+        
+        // Filter out any failed loads
+        const successfulUrls = preloaded.filter(url => url !== null);
+        
+        if (successfulUrls.length === 0) {
+          throw new Error("All image generations failed");
         }
 
-        const results = await Promise.all(promises);
-        generatedImages.push(...results.filter(url => url !== null));
-
-        if (generatedImages.length === 0) {
-          throw new Error("All image generation attempts failed");
-        }
-
+        // Display images
         grid.innerHTML = "";
-        
-        generatedImages.forEach((url, index) => {
+        successfulUrls.forEach((url, index) => {
           const box = document.createElement('div');
           box.className = "image-box";
-          
-          // Apply aspect ratio to the image container
-          const { width, height } = getAspectRatioDimensions(ratio);
-          const paddingBottom = (height / width) * 100;
+          box.style.setProperty('--img-ratio', aspectRatio);
           
           box.innerHTML = `
-            <div style="position: relative; width: 100%; padding-bottom: ${paddingBottom}%; overflow: hidden; border-radius: 8px;">
-              <img src="${url}" 
-                   alt="Generated Image ${index + 1}" 
-                   loading="lazy"
-                   style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <a href="${url}" download="huzii-ai-image-${index + 1}.jpg" class="download-btn">Download</a>
+            <div class="ratio-indicator">${ratio}</div>
+            <img src="${url}" alt="Generated Image ${index + 1}" loading="lazy">
+            <a href="${url}" download="huzii-ai-image-${index + 1}.jpg" class="download-btn">
+              Download (${ratio})
+            </a>
           `;
           grid.appendChild(box);
         });
-        
+
       } catch (error) {
-        console.error('Error generating images:', error);
         grid.innerHTML = `
-          <div class="error">
-            Error generating images. Please try again with a different prompt.
-            ${error.message ? `<br><small>${error.message}</small>` : ''}
+          <div class="loading">
+            <div style="color: #ff5555;">⚠️ Error generating images</div>
+            <div>${error.message || 'Please try again with a different prompt'}</div>
+            <button onclick="generateImages()" style="margin-top: 20px;">Retry</button>
           </div>
         `;
-      } finally {
-        generateBtn.disabled = false;
+        console.error('Error generating images:', error);
       }
     }
 
@@ -306,6 +373,11 @@
       if (e.key === 'Enter') {
         generateImages();
       }
+    });
+
+    // Focus the input field on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('prompt').focus();
     });
   </script>
 
