@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -86,14 +86,14 @@
   <h1>HUZII AI Image Generator</h1>
 
   <div class="input-group">
-    <input type="text" id="prompt" placeholder="اپنا پرامپٹ درج کریں..." />
+    <input type="text" id="prompt" placeholder="Enter your prompt..." />
     <select id="ratio">
-      <option value="1:1">مربع (1:1)</option>
-      <option value="16:9">یوٹیوب (16:9)</option>
-      <option value="9:16">ٹک ٹاک (9:16)</option>
-      <option value="4:3">کلاسک (4:3)</option>
+      <option value="1:1">Square (1:1)</option>
+      <option value="16:9">YouTube (16:9)</option>
+      <option value="9:16">TikTok (9:16)</option>
+      <option value="4:3">Classic (4:3)</option>
     </select>
-    <button onclick="generateImages()">تصاویر بنائیں</button>
+    <button onclick="generateImages()">Generate Images</button>
   </div>
 
   <div class="image-grid" id="imageGrid"></div>
@@ -103,12 +103,11 @@
       const prompt = document.getElementById('prompt').value;
       const ratio = document.getElementById('ratio').value;
       const grid = document.getElementById('imageGrid');
-      grid.innerHTML = "تصاویر بنائی جا رہی ہیں...";
+      grid.innerHTML = "Generating images...";
 
-      // Pollinations API استعمال کرتے ہوئے تصاویر بنائیں
       const generatedImages = [];
       for (let i = 0; i < 4; i++) {
-        const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?seed=${Math.floor(Math.random() * 1000)}`;
+        const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?seed=${Math.floor(Math.random() * 1000)}&ratio=${ratio}`;
         generatedImages.push(imgUrl);
       }
 
@@ -119,7 +118,7 @@
         box.className = "image-box";
         box.innerHTML = `
           <img src="${url}" alt="Generated Image">
-          <a href="${url}" download="generated-image.jpg" class="download-btn">ڈاؤن لوڈ کریں</a>
+          <a href="${url}" download="generated-image.jpg" class="download-btn">Download</a>
         `;
         grid.appendChild(box);
       });
