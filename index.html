@@ -86,10 +86,34 @@
       box-shadow: 0 0 15px var(--primary-color);
     }
 
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .loading {
       font-size: 1.2rem;
       color: var(--primary-color);
       margin: 30px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .spinner {
+      border: 4px solid rgba(0, 247, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid var(--primary-color);
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px 0;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .image-grid {
@@ -115,8 +139,6 @@
     .image-box img {
       width: 100%;
       border-radius: 8px;
-      aspect-ratio: 1/1;
-      object-fit: cover;
       margin-bottom: 10px;
     }
 
@@ -134,6 +156,11 @@
 
     .download-btn:hover {
       background: #00d8e0;
+    }
+
+    .error {
+      color: #ff5555;
+      margin: 20px 0;
     }
 
     @media (max-width: 600px) {
@@ -166,13 +193,24 @@
         <option value="9:16">TikTok (9:16)</option>
         <option value="4:3">Classic (4:3)</option>
       </select>
-      <button onclick="generateImages()">Generate Images</button>
+      <button id="generateBtn" onclick="generateImages()">Generate Images</button>
     </div>
   </div>
 
   <div class="image-grid" id="imageGrid"></div>
 
   <script>
+    // Better API endpoints with aspect ratio support
+    const API_ENDPOINTS = [
+      "https://image.pollinations.ai/prompt",
+      "https://aiimagegenerator.azurewebsites.net/api/generateimage"
+    ];
+
+    function getAspectRatioDimensions(ratio) {
+      const [width, height] = ratio.split(':').map(Number);
+      return { width, height };
+    }
+
     async function generateImages() {
       const prompt = document.getElementById('prompt').value.trim();
       if (!prompt) {
@@ -182,29 +220,84 @@
 
       const ratio = document.getElementById('ratio').value;
       const grid = document.getElementById('imageGrid');
-      grid.innerHTML = '<div class="loading">Generating your images... Please wait</div>';
+      const generateBtn = document.getElementById('generateBtn');
+      
+      generateBtn.disabled = true;
+      grid.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          Generating your images... Please wait
+        </div>
+      `;
 
       try {
+        const { width, height } = getAspectRatioDimensions(ratio);
+        const aspectRatio = width / height;
+        
         const generatedImages = [];
+        const promises = [];
+        
+        // Generate 4 images in parallel for better performance
         for (let i = 0; i < 4; i++) {
-          const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?seed=${Math.floor(Math.random() * 1000)}&ratio=${ratio}`;
-          generatedImages.push(imgUrl);
+          const apiIndex = i % API_ENDPOINTS.length; // Alternate between APIs
+          const apiUrl = API_ENDPOINTS[apiIndex];
+          
+          let imgUrl;
+          if (apiUrl.includes('pollinations')) {
+            imgUrl = `${apiUrl}/${encodeURIComponent(prompt)}?seed=${Math.floor(Math.random() * 1000)}&width=${width * 100}&height=${height * 100}`;
+          } else {
+            imgUrl = `${apiUrl}?prompt=${encodeURIComponent(prompt)}&width=${width * 512}&height=${height * 512}`;
+          }
+          
+          promises.push(
+            new Promise((resolve) => {
+              const img = new Image();
+              img.onload = () => resolve(img.src);
+              img.onerror = () => resolve(null);
+              img.src = imgUrl;
+            })
+          );
+        }
+
+        const results = await Promise.all(promises);
+        generatedImages.push(...results.filter(url => url !== null));
+
+        if (generatedImages.length === 0) {
+          throw new Error("All image generation attempts failed");
         }
 
         grid.innerHTML = "";
-
+        
         generatedImages.forEach((url, index) => {
           const box = document.createElement('div');
           box.className = "image-box";
+          
+          // Apply aspect ratio to the image container
+          const { width, height } = getAspectRatioDimensions(ratio);
+          const paddingBottom = (height / width) * 100;
+          
           box.innerHTML = `
-            <img src="${url}" alt="Generated Image ${index + 1}" loading="lazy">
+            <div style="position: relative; width: 100%; padding-bottom: ${paddingBottom}%; overflow: hidden; border-radius: 8px;">
+              <img src="${url}" 
+                   alt="Generated Image ${index + 1}" 
+                   loading="lazy"
+                   style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+            </div>
             <a href="${url}" download="huzii-ai-image-${index + 1}.jpg" class="download-btn">Download</a>
           `;
           grid.appendChild(box);
         });
+        
       } catch (error) {
-        grid.innerHTML = '<div class="loading">Error generating images. Please try again.</div>';
         console.error('Error generating images:', error);
+        grid.innerHTML = `
+          <div class="error">
+            Error generating images. Please try again with a different prompt.
+            ${error.message ? `<br><small>${error.message}</small>` : ''}
+          </div>
+        `;
+      } finally {
+        generateBtn.disabled = false;
       }
     }
 
