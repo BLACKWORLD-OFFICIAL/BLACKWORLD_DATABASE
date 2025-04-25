@@ -70,17 +70,43 @@
       const prompt = document.getElementById('prompt').value;
       const ratio = document.getElementById('ratio').value;
       const imageContainer = document.getElementById('imageContainer');
-      imageContainer.innerHTML = 'Generating...';
+      imageContainer.innerHTML = 'Generating images... Please wait';
 
-      // Replace with your working API endpoint or mock for now
-      const dummyImage = `https://source.unsplash.com/800x600/?${prompt}`;
-
-      let imagesHTML = '';
-      for (let i = 0; i < 4; i++) {
-        imagesHTML += `<a href="${dummyImage}" download><img src="${dummyImage}" alt="Generated Image ${i + 1}"></a>`;
+      let size;
+      switch (ratio) {
+        case '1:1': size = '512x512'; break;
+        case '9:16': size = '576x1024'; break;
+        case '16:9': size = '1024x576'; break;
+        case '4:3': size = '800x600'; break;
+        default: size = '512x512';
       }
 
-      imageContainer.innerHTML = imagesHTML;
+      const response = await fetch("https://api.deepseek.com/api/v1/images/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          size: size,
+          n: 4
+        })
+      });
+
+      const result = await response.json();
+      if (!result.images) {
+        imageContainer.innerHTML = 'Failed to generate images. Try again.';
+        return;
+      }
+
+      imageContainer.innerHTML = '';
+      result.images.forEach((img, i) => {
+        const imgEl = document.createElement("a");
+        imgEl.href = img;
+        imgEl.download = `image_${i + 1}.png`;
+        imgEl.innerHTML = `<img src="${img}" alt="Generated Image ${i + 1}">`;
+        imageContainer.appendChild(imgEl);
+      });
     }
   </script></body>
 </html>
