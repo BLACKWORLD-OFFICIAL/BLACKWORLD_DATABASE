@@ -1,170 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Image Generator</title>
-    <style>
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUZII AI - SeaArt Generator</title>
+  <style>
+    :root {
+      --primary: #00f7ff;
+      --secondary: #0f0f0f;
+      --accent: #ff00f7;
+      --card-bg: #111;
+      --text: #fff;
+    }
+    
+    body {
+      background: var(--secondary);
+      color: var(--text);
+      font-family: 'Segoe UI', sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(0, 247, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 0, 247, 0.1) 0%, transparent 50%);
+    }
 
-        /* Background & Body */
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(45deg, #000428, #004e92);
-            color: white;
-            text-align: center;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
+    h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(0, 247, 255, 0.3);
+      margin-bottom: 30px;
+    }
 
-        /* Glowing Button */
-        button {
-            background: #4CAF50;
-            color: white;
-            font-size: 20px;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.3s;
-            box-shadow: 0 0 20px #4CAF50, 0 0 30px #4CAF50, 0 0 40px #4CAF50;
-        }
+    .input-container {
+      background: rgba(17, 17, 17, 0.9);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 247, 255, 0.2);
+      margin-bottom: 30px;
+      border: 1px solid rgba(0, 247, 255, 0.1);
+    }
 
-        button:hover {
-            background: #45a049;
-            box-shadow: 0 0 40px #45a049, 0 0 50px #45a049, 0 0 60px #45a049;
-        }
+    .input-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
 
-        /* Input Box */
-        input {
-            padding: 12px;
-            width: 60%;
-            max-width: 500px;
-            margin-top: 20px;
-            border: 2px solid #4CAF50;
-            border-radius: 30px;
-            background: #121212;
-            color: white;
-            font-size: 18px;
-            outline: none;
-            transition: 0.3s;
-        }
+    input, select, button {
+      padding: 14px 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 247, 255, 0.3);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
 
-        input:focus {
-            border-color: #4CAF50;
-            background: #1c1c1c;
-        }
+    input {
+      flex: 1;
+      min-width: 300px;
+      background: #222;
+      color: var(--text);
+    }
 
-        /* Loading Spinner */
-        #loading {
-            display: none;
-            color: #ffb900;
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
+    input:focus {
+      box-shadow: 0 0 15px var(--primary);
+      border-color: var(--primary);
+    }
 
-        /* Container for Images */
-        #imageContainer {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
+    select {
+      background: var(--card-bg);
+      color: var(--primary);
+      min-width: 180px;
+      cursor: pointer;
+    }
 
-        img {
-            max-width: 45%;
-            margin: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #4CAF50;
-        }
+    button {
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      min-width: 180px;
+    }
 
-        /* Neon Animation */
-        .neon {
-            font-size: 48px;
-            font-weight: bold;
-            color: #fff;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            background: linear-gradient(45deg, #ff4b2b, #ff416c);
-            background-clip: text;
-            animation: neon 1.5s ease-in-out infinite alternate;
-        }
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px var(--primary);
+    }
 
-        @keyframes neon {
-            0% {
-                text-shadow: 0 0 5px #ff4b2b, 0 0 10px #ff4b2b, 0 0 15px #ff4b2b;
-            }
-            50% {
-                text-shadow: 0 0 10px #ff416c, 0 0 20px #ff416c, 0 0 30px #ff416c;
-            }
-            100% {
-                text-shadow: 0 0 15px #ff4b2b, 0 0 30px #ff4b2b, 0 0 45px #ff4b2b;
-            }
-        }
-    </style>
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin: 40px 0;
+      color: var(--primary);
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(0, 247, 255, 0.2);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .image-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 247, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .image-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 25px var(--primary);
+    }
+
+    .image-card img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: var(--img-ratio);
+      object-fit: cover;
+    }
+
+    .download-btn {
+      display: block;
+      padding: 12px;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      color: black;
+      text-align: center;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(45deg, var(--accent), var(--primary));
+    }
+
+    @media (max-width: 768px) {
+      .input-group {
+        flex-direction: column;
+      }
+      
+      input, select, button {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div>
-        <h1 class="neon">AI Image Generator</h1>
-        <input type="text" id="prompt" placeholder="Enter prompt for image generation..." />
-        <button onclick="generateImage()">Generate Image</button>
-        <p id="loading">Generating image, please wait...</p>
-        <div id="imageContainer"></div>
+  <h1>HUZII AI - SeaArt Generator</h1>
+  
+  <div class="input-container">
+    <div class="input-group">
+      <input type="text" id="prompt" placeholder="Describe your image..." autofocus>
+      <select id="ratio">
+        <option value="1:1">Square (1:1)</option>
+        <option value="16:9">Widescreen (16:9)</option>
+        <option value="9:16">Portrait (9:16)</option>
+      </select>
+      <button onclick="generateImages()">Generate</button>
     </div>
+  </div>
 
-    <script>
-        // Generate image function
-        function generateImage() {
-            var prompt = document.getElementById('prompt').value;
+  <div class="image-grid" id="imageGrid"></div>
 
-            // Check if prompt is empty
-            if (!prompt) {
-                alert("Please enter a prompt!");
-                return;
-            }
+  <script>
+    async function generateImages() {
+      const prompt = document.getElementById('prompt').value.trim();
+      if (!prompt) {
+        alert('Please enter a prompt');
+        return;
+      }
 
-            // Show loading message
-            document.getElementById('loading').style.display = 'block';
+      const ratio = document.getElementById('ratio').value;
+      const [width, height] = ratio.split(':').map(Number);
+      const grid = document.getElementById('imageGrid');
+      
+      grid.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          Generating high-quality images via SeaArt API...
+        </div>
+      `;
 
-            // API call to your backend (assuming backend is running at localhost:5000)
-            fetch('http://127.0.0.1:5000/generate-image', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ prompt: prompt }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Hide loading message
-                document.getElementById('loading').style.display = 'none';
+      try {
+        // Generate 4 unique images
+        const imageUrls = await Promise.all(
+          Array.from({ length: 4 }, (_, i) => 
+            fetchSeaArtImage(prompt, width, height, i)
+        );
 
-                if (data.image) {
-                    var image = new Image();
-                    image.src = 'data:image/png;base64,' + data.image;
-                    document.getElementById('imageContainer').innerHTML = ''; // Clear previous images
-                    document.getElementById('imageContainer').appendChild(image);
-                } else {
-                    alert('Error generating image.');
-                }
-            })
-            .catch(error => {
-                document.getElementById('loading').style.display = 'none'; // Hide loading message
-                alert('Error: ' + error);
-            });
-        }
-    </script>
+        grid.innerHTML = '';
+        
+        imageUrls.forEach((url, index) => {
+          if (!url) return;
+          
+          const card = document.createElement('div');
+          card.className = 'image-card';
+          card.style.setProperty('--img-ratio', width / height);
+          
+          card.innerHTML = `
+            <img src="${url}" alt="Generated image ${index + 1}">
+            <a href="${url}" download="huzii-ai-${index + 1}.jpg" class="download-btn">
+              Download (${ratio})
+            </a>
+          `;
+          
+          grid.appendChild(card);
+        });
+
+      } catch (error) {
+        grid.innerHTML = `
+          <div class="loading" style="color: #ff5555;">
+            Error: ${error.message || 'Failed to generate images'}
+            <button onclick="generateImages()" style="margin-top: 20px;">Try Again</button>
+          </div>
+        `;
+        console.error('Generation error:', error);
+      }
+    }
+
+    async function fetchSeaArtImage(prompt, width, height, seed) {
+      const apiUrl = `https://seaart-ai.apis-bj-devs.workers.dev/?Prompt=${encodeURIComponent(prompt)}&width=${width * 100}&height=${height * 100}&seed=${seed}`;
+      
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error('API request failed');
+        return await response.text(); // SeaArt returns direct image URL
+      } catch (error) {
+        console.error(`Error fetching image ${seed}:`, error);
+        return null;
+      }
+    }
+
+    // Enter key support
+    document.getElementById('prompt').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') generateImages();
+    });
+  </script>
 </body>
 </html>
