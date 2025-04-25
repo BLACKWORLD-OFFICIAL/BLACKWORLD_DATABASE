@@ -1,75 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Image Generator by HUZII</title>
+  <meta charset="UTF-8">
+  <title>HUZII AI Image Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Share+Tech+Mono&display=swap');
+
     body {
       margin: 0;
-      background: #0d0d0d;
-      font-family: 'Segoe UI', sans-serif;
-      color: #fff;
+      padding: 0;
+      font-family: 'Share Tech Mono', monospace;
+      background: radial-gradient(ellipse at center, #000000 0%, #050505 100%);
+      color: #00ffe7;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
     h1 {
-      font-size: 3rem;
-      background: linear-gradient(90deg, #0ff, #f0f);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      margin-top: 40px;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
     }
 
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+    .container {
+      width: 90%;
+      max-width: 900px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #00ffe7;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 30px #00ffe7;
+      margin-top: 20px;
     }
 
-    input, select, button {
-      padding: 0.7rem 1rem;
-      font-size: 1rem;
-      border-radius: 8px;
+    input[type="text"] {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
       border: none;
+      font-size: 1.1rem;
+      background: #111;
+      color: #0ff;
+      box-shadow: 0 0 10px #00ffe7;
       outline: none;
     }
 
-    input, select {
-      width: 250px;
-    }
-
     button {
-      background: linear-gradient(45deg, #00f0ff, #a300ff);
-      color: white;
-      font-weight: bold;
+      margin-top: 15px;
+      padding: 15px 25px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      background: #00ffe7;
+      color: #000;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      font-weight: bold;
+      transition: 0.3s;
+      box-shadow: 0 0 15px #00ffe7;
     }
 
     button:hover {
-      transform: scale(1.05);
+      background: #00ccbb;
+      box-shadow: 0 0 20px #00ccbb;
     }
 
-    .gallery {
+    .images {
+      margin-top: 30px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      width: 100%;
-      margin-top: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
     }
 
     .image-box {
       position: relative;
-      border: 2px solid #222;
       border-radius: 10px;
       overflow: hidden;
-      background: #111;
-      box-shadow: 0 0 10px #0ff3;
+      border: 2px solid #00ffe7;
+      box-shadow: 0 0 20px #00ffe7;
     }
 
     .image-box img {
@@ -80,90 +93,87 @@
 
     .download-btn {
       position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: #0ff;
-      color: #000;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #0ff;
       padding: 5px 10px;
-      border-radius: 6px;
+      font-size: 0.8rem;
+      border-radius: 5px;
       text-decoration: none;
-      font-weight: bold;
-      font-size: 0.9rem;
+      box-shadow: 0 0 10px #0ff;
     }
 
-    .status {
-      margin-top: 1rem;
-      color: #f0f;
-      font-weight: bold;
+    .loading {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #0ff;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #888;
+      padding-bottom: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>AI Image Generator</h1>
 
-  <div class="controls">
-    <input type="text" id="prompt" placeholder="Enter your prompt..." />
-    <select id="format">
-      <option value="square">Square</option>
-      <option value="portrait">TikTok (Portrait)</option>
-      <option value="landscape">YouTube (Landscape)</option>
-    </select>
+  <h1>HUZII AI IMAGE GENERATOR</h1>
+  <div class="container">
+    <input type="text" id="promptInput" placeholder="Enter your image prompt here...">
     <button onclick="generateImages()">Generate Images</button>
+    <div class="loading" id="loading" style="display: none;">Generating images, please wait...</div>
+    <div class="images" id="imageContainer"></div>
   </div>
 
-  <div class="status" id="status"></div>
-
-  <div class="gallery" id="gallery"></div>
+  <div class="footer">Powered by DeepAI | Created by HUZII BALOCH</div>
 
   <script>
     async function generateImages() {
-      const prompt = document.getElementById('prompt').value;
-      const format = document.getElementById('format').value;
-      const status = document.getElementById('status');
-      const gallery = document.getElementById('gallery');
-      gallery.innerHTML = "";
-      status.innerText = "Generating images...";
+      const prompt = document.getElementById('promptInput').value.trim();
+      const loading = document.getElementById('loading');
+      const container = document.getElementById('imageContainer');
+      container.innerHTML = '';
+      if (!prompt) return;
 
-      let aspect = "1:1";
-      if (format === "landscape") aspect = "16:9";
-      else if (format === "portrait") aspect = "9:16";
+      loading.style.display = 'block';
 
-      try {
-        const response = await fetch("https://api.deepseek.com/v1/generate-image", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            prompt: prompt,
-            aspect_ratio: aspect,
-            num_images: 4
-          })
-        });
+      for (let i = 0; i < 4; i++) {
+        try {
+          const res = await fetch("https://api.deepai.org/api/text2img", {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'api-key': '507557a4-e516-4581-97f4-4829e0e9f7d8'
+            },
+            body: `text=${encodeURIComponent(prompt)}`
+          });
 
-        const data = await response.json();
+          const data = await res.json();
 
-        if (!data.images || !data.images.length) {
-          status.innerText = "Failed to generate images.";
-          return;
+          if (data.output_url) {
+            const box = document.createElement("div");
+            box.className = "image-box";
+            box.innerHTML = `
+              <img src="${data.output_url}" alt="AI Image">
+              <a class="download-btn" href="${data.output_url}" download="image.png">Download</a>
+            `;
+            container.appendChild(box);
+          } else {
+            container.innerHTML += `<p style="color:red;">Error generating image: ${data.err || 'Unknown error'}</p>`;
+          }
+        } catch (e) {
+          container.innerHTML += `<p style="color:red;">Error: ${e.message}</p>`;
         }
-
-        status.innerText = "";
-        data.images.forEach((imgUrl, i) => {
-          const box = document.createElement("div");
-          box.className = "image-box";
-          box.innerHTML = `
-            <img src="${imgUrl}" alt="Generated Image ${i+1}" />
-            <a class="download-btn" href="${imgUrl}" download="image-${i+1}.png">Download</a>
-          `;
-          gallery.appendChild(box);
-        });
-
-      } catch (err) {
-        status.innerText = "Error generating images.";
-        console.error(err);
       }
+
+      loading.style.display = 'none';
     }
   </script>
+
 </body>
 </html>
