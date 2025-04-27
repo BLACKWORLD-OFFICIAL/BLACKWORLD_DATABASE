@@ -905,64 +905,107 @@
             
             const user = users.find(u => u.username === username && u.password === password);
             
-            if (user) {
-                currentUser = user;
-                document.querySelector('.auth-container').style.display = 'none';
-                document.querySelector('.platform').style.display = 'block';
-                document.getElementById('adminNavBtn').style.display = user.isAdmin ? 'block' : 'none';
-                updateUI();
-                
-                // Check if user has active plan
-                if (user.data.activePlan) {
-                    startPlanProgress();
-                }
-            } else {
-                showNotification('Invalid username or password!', 'error');
-            }
-        });
+// User Management
+let users = JSON.parse(localStorage.getItem('users')) || [];
+let currentUser = null;
 
-        signupForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('signupUsername').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('signupConfirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                showNotification('Passwords do not match!', 'error');
-                return;
-            }
-            
-            if (users.some(u => u.username === username)) {
-                showNotification('Username already exists!', 'error');
-                return;
-            }
-            
-            const userData = new UserData();
-            
-            users.push({
-                username,
-                email,
-                password,
-                isAdmin: false,
-                data: userData
-            });
-            
-            localStorage.setItem('users', JSON.stringify(users));
-            showNotification('Account created successfully! Please login.', 'success');
-            signupForm.reset();
-            
-            // Switch to login tab
-            loginTab.click();
-        });
-
-        function logout() {
-            currentUser = null;
-            document.querySelector('.platform').style.display = 'none';
-            document.querySelector('.auth-container').style.display = 'flex';
-            document.getElementById('loginForm').reset();
+// Create admin if no users exist
+if (users.length === 0) {
+    users.push({
+        username: 'admin',
+        email: 'admin@baloch.com',
+        password: 'admin123',
+        isAdmin: true,
+        data: {
+            balance: 100000,
+            activePlan: null,
+            transactions: [],
+            withdrawals: [],
+            totalInvested: 0,
+            totalWithdrawn: 0,
+            referrals: [],
+            referralEarnings: 0
         }
+    });
+    localStorage.setItem('users', JSON.stringify(users));
+}
 
+// Tab Switching
+document.getElementById('loginTab').addEventListener('click', () => {
+    document.getElementById('loginTab').classList.add('active');
+    document.getElementById('signupTab').classList.remove('active');
+    document.getElementById('loginForm').classList.add('active');
+    document.getElementById('signupForm').classList.remove('active');
+});
+
+document.getElementById('signupTab').addEventListener('click', () => {
+    document.getElementById('signupTab').classList.add('active');
+    document.getElementById('loginTab').classList.remove('active');
+    document.getElementById('signupForm').classList.add('active');
+    document.getElementById('loginForm').classList.remove('active');
+});
+
+// Login Function
+document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    
+    const user = users.find(u => u.username === username && u.password === password);
+    if (user) {
+        currentUser = user;
+        document.querySelector('.auth-container').style.display = 'none';
+        document.querySelector('.platform').style.display = 'block';
+        document.getElementById('adminNavBtn').style.display = user.isAdmin ? 'block' : 'none';
+        updateUI();
+        showNotification('Login successful!', 'success');
+    } else {
+        showNotification('Invalid credentials', 'error');
+    }
+});
+
+// Signup Function
+document.getElementById('signupForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('signupUsername').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value.trim();
+    const confirmPassword = document.getElementById('signupConfirmPassword').value.trim();
+
+    if (password !== confirmPassword) {
+        showNotification('Passwords do not match', 'error');
+        return;
+    }
+
+    users.push({
+        username,
+        email,
+        password,
+        isAdmin: false,
+        data: {
+            balance: 0,
+            activePlan: null,
+            transactions: [],
+            withdrawals: [],
+            totalInvested: 0,
+            totalWithdrawn: 0,
+            referrals: [],
+            referralEarnings: 0
+        }
+    });
+
+    localStorage.setItem('users', JSON.stringify(users));
+    showNotification('Account created! Please login.', 'success');
+    document.getElementById('loginTab').click();
+});
+
+// Logout Function
+function logout() {
+    currentUser = null;
+    document.querySelector('.platform').style.display = 'none';
+    document.querySelector('.auth-container').style.display = 'flex';
+    document.getElementById('loginForm').reset();
+}
         // Platform Functions
         function showPlatformTab(tabId) {
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
