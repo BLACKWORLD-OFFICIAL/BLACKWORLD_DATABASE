@@ -58,18 +58,8 @@
       gap: 10px;
     }
 
-    .logo i {
-      font-size: 2rem;
-      color: var(--primary);
-      animation: heartbeat 1.5s infinite;
-    }
-
-    @keyframes heartbeat {
-      0% { transform: scale(1); }
-      25% { transform: scale(1.1); }
-      50% { transform: scale(1); }
-      75% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+    .logo img {
+      height: 40px;
     }
 
     .logo-text {
@@ -83,22 +73,36 @@
       letter-spacing: 2px;
     }
 
-    /* Neon Social Icons */
-    .social-icons {
+    .nav-links {
       display: flex;
-      gap: 15px;
+      gap: 2rem;
     }
 
-    .social-icons a {
+    .nav-links a {
       color: var(--light);
-      font-size: 1.2rem;
-      transition: all 0.3s;
-      text-shadow: 0 0 10px var(--secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .social-icons a:hover {
-      transform: translateY(-5px);
-      text-shadow: 0 0 20px var(--primary);
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--gradient);
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     /* Hero Section */
@@ -383,7 +387,7 @@
     /* Footer */
     footer {
       background: rgba(10, 10, 26, 0.9);
-      padding: 2rem;
+      padding: 3rem 2rem;
       text-align: center;
       border-top: 1px solid rgba(255, 77, 77, 0.3);
     }
@@ -400,30 +404,45 @@
       display: inline-block;
     }
 
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--light);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
     .social-links {
       display: flex;
       justify-content: center;
       gap: 1.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
 
     .social-links a {
       color: var(--light);
       font-size: 1.5rem;
       transition: all 0.3s ease;
-      text-shadow: 0 0 10px var(--secondary);
     }
 
     .social-links a:hover {
       color: var(--primary);
       transform: translateY(-5px);
-      text-shadow: 0 0 20px var(--primary);
     }
 
     .copyright {
       opacity: 0.7;
       font-size: 0.9rem;
-      margin-top: 1rem;
     }
 
     /* Animations */
@@ -462,8 +481,8 @@
         gap: 1rem;
       }
 
-      .social-icons {
-        margin-top: 1rem;
+      .nav-links {
+        gap: 1rem;
       }
 
       .hero {
@@ -485,17 +504,18 @@
   </style>
 </head>
 <body>
-  <!-- Header with Neon Icons -->
+  <!-- Header -->
   <header>
     <div class="logo">
-      <i class="fas fa-heart"></i>
+      <i class="fas fa-sim-card" style="font-size: 2rem; color: var(--primary);"></i>
       <span class="logo-text">BLACK WORLD</span>
     </div>
-    <div class="social-icons">
-      <a href="https://whatsapp.com/channel/0029VaqyldOC6ZvZ6uSVmg2q" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      <a href="https://t.me/TECHBYHUZII" target="_blank"><i class="fab fa-telegram"></i></a>
-      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-    </div>
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="https://whatsapp.com/channel/0029VaqyldOC6ZvZ6uSVmg2q" target="_blank">Channel</a>
+      <a href="https://wa.me/923058190234" target="_blank">Contact</a>
+    </nav>
   </header>
 
   <!-- Hero Section -->
@@ -578,9 +598,16 @@
   <!-- Footer -->
   <footer>
     <div class="footer-logo">BLACK WORLD</div>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#features">Services</a>
+      <a href="https://whatsapp.com/channel/0029VaqyldOC6ZvZ6uSVmg2q" target="_blank">WhatsApp Channel</a>
+      <a href="https://t.me/TECHBYHUZII" target="_blank">Telegram</a>
+      <a href="https://wa.me/923058190234" target="_blank">Contact</a>
+    </div>
     <div class="social-links">
-      <a href="https://whatsapp.com/channel/0029VaqyldOC6ZvZ6uSVmg2q" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      <a href="https://t.me/TECHBYHUZII" target="_blank"><i class="fab fa-telegram"></i></a>
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
       <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
       <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
     </div>
@@ -626,30 +653,25 @@
         errorMsg.textContent = '';
         
         try {
-          // Call BLACK WORLD API
-          const response = await fetch(`https://blackworld-sim-api.vercel.app/sim-api?num=3001234567/sim-api?num=${number}`);
+          // Call the API with the correct endpoint
+          const response = await fetch(`https://blackworld-sim-api.vercel.app/sim-api?num=${number}`);
+          
+          if (!response.ok) {
+            throw new Error(`API request failed with status ${response.status}`);
+          }
+          
           const data = await response.json();
-
-          // If API failed
-          if (!data || data.status !== "success") {
-            throw new Error("API Failed");
+          console.log('API Response:', data); // For debugging
+          
+          if (!data || data.error) {
+            throw new Error(data.message || 'No data found for this number');
           }
-
-          // Modify "not available" response
-          if (data.data[0].Operator.includes("not available")) {
-            data.data[0] = {
-              Name: "❌ Data Not Found",
-              Mobile: number,
-              CNIC: "❌ Data Not Found",
-              Operator: "⚠️ Join BLACK WORLD WhatsApp: https://whatsapp.com/channel/0029VaqyldOC6ZvZ6uSVmg2q",
-              Address: "📞 Contact @BLACK WORLD"
-            };
-          }
-
+          
+          // Display results
           displayResults(data);
-
         } catch (error) {
-          errorMsg.textContent = 'Failed to fetch data. Contact @BLACK WORLD';
+          console.error('Error:', error);
+          errorMsg.textContent = error.message || 'Failed to fetch data. Please try again later.';
           results.classList.remove('show');
           shareButtons.classList.remove('show');
         } finally {
@@ -659,37 +681,32 @@
       }
 
       function displayResults(data) {
-        if (data.status === "success" && data.data && data.data.length > 0) {
-          const simData = data.data[0];
-          
-          mobileNumber.textContent = simData.Mobile || 'Not available';
-          name.textContent = simData.Name || 'Not available';
-          cnic.textContent = simData.CNIC || 'Not available';
-          address.textContent = simData.Address || 'Not available';
-          operator.textContent = simData.Operator || 'Not available';
-          
-          // Prepare share message
-          const shareText = `📱 SIM Data Results:\n\n` +
-                           `Number: ${simData.Mobile}\n` +
-                           `Name: ${simData.Name}\n` +
-                           `CNIC: ${simData.CNIC}\n` +
-                           `Address: ${simData.Address}\n` +
-                           `Operator: ${simData.Operator}\n\n` +
-                           `Checked via BLACK WORLD SIM Database`;
-          
-          // Set share links
-          whatsappShare.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-          telegramShare.href = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareText)}`;
-          
-          // Show results and share buttons
-          results.classList.add('show');
-          shareButtons.classList.add('show');
-          errorMsg.textContent = '';
-        } else {
-          errorMsg.textContent = 'No data found for this number.';
-          results.classList.remove('show');
-          shareButtons.classList.remove('show');
-        }
+        // Handle different response formats
+        const simData = data.data ? data.data[0] : data;
+        
+        mobileNumber.textContent = simData.Mobile || searchInput.value.trim() || 'Not available';
+        name.textContent = simData.Name || 'Not available';
+        cnic.textContent = simData.CNIC || 'Not available';
+        address.textContent = simData.Address || 'Not available';
+        operator.textContent = simData.Operator || 'Not available';
+        
+        // Prepare share message
+        const shareText = `📱 SIM Data Results:\n\n` +
+                         `Number: ${mobileNumber.textContent}\n` +
+                         `Name: ${name.textContent}\n` +
+                         `CNIC: ${cnic.textContent}\n` +
+                         `Address: ${address.textContent}\n` +
+                         `Operator: ${operator.textContent}\n\n` +
+                         `Checked via BLACK WORLD SIM Database`;
+        
+        // Set share links
+        whatsappShare.href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+        telegramShare.href = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(shareText)}`;
+        
+        // Show results
+        results.classList.add('show');
+        shareButtons.classList.add('show');
+        errorMsg.textContent = '';
       }
     });
   </script>
