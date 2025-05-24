@@ -1,149 +1,951 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HUZII HACKER | BLACK WORLD OFFICIAL</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap');* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Share Tech Mono', monospace;
-  background: linear-gradient(145deg, #000000, #0f0f0f);
-  color: #39ff14;
-  overflow-x: hidden;
-  line-height: 1.6;
-}
-
-header {
-  background: #111;
-  padding: 50px 20px;
-  text-align: center;
-  box-shadow: 0 0 20px #39ff14;
-}
-
-header h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 3.5rem;
-  color: #39ff14;
-  text-shadow: 0 0 10px #39ff14;
-  animation: glitch 1s infinite alternate;
-}
-
-@keyframes glitch {
-  0% { text-shadow: 2px 2px #39ff14, -2px -2px #ff004f; }
-  100% { text-shadow: -2px -2px #00ffff, 2px 2px #ff004f; }
-}
-
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 40px 20px;
-}
-
-section {
-  margin-bottom: 60px;
-}
-
-h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  text-shadow: 0 0 5px #39ff14;
-  border-bottom: 1px solid #39ff14;
-  padding-bottom: 10px;
-}
-
-ul li {
-  margin-bottom: 10px;
-}
-
-.highlight {
-  color: #39ff14;
-  font-weight: bold;
-}
-
-.info p, ul {
-  margin-left: 20px;
-}
-
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-.gallery img {
-  width: 300px;
-  border: 2px solid #39ff14;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #39ff14;
-}
-
-footer {
-  text-align: center;
-  padding: 20px;
-  color: #666;
-  background: #0a0a0a;
-  border-top: 1px solid #39ff14;
-}
-
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 2.2rem;
-  }
-  .gallery img {
-    width: 100%;
-  }
-}
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUZII HACKER | Professional Ethical Hacker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #0fff50;
+            --neon-blue: #0afcff;
+            --neon-purple: #bc13fe;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --text-color: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(10, 252, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(188, 19, 254, 0.05) 0%, transparent 20%);
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.95)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="1" height="1" x="0" y="0" fill="rgba(15, 255, 80, 0.03)"/></svg>');
+            z-index: -1;
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.5;
+        }
+        
+        .glitch-effect {
+            position: relative;
+        }
+        
+        .glitch-effect::before, .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        
+        .glitch-effect::before {
+            color: var(--neon-blue);
+            animation: glitch 3s infinite linear alternate-reverse;
+            z-index: -1;
+        }
+        
+        .glitch-effect::after {
+            color: var(--neon-purple);
+            animation: glitch 2s infinite linear alternate-reverse;
+            z-index: -2;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+        
+        .terminal-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: var(--neon-green);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .neon-text {
+            text-shadow: 
+                0 0 5px currentColor,
+                0 0 10px currentColor,
+                0 0 20px currentColor;
+        }
+        
+        .neon-box {
+            box-shadow: 
+                0 0 5px var(--neon-green),
+                0 0 10px var(--neon-green),
+                inset 0 0 5px var(--neon-green),
+                inset 0 0 10px var(--neon-green);
+            border: 1px solid var(--neon-green);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neon-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                transparent,
+                transparent,
+                var(--neon-green),
+                transparent,
+                transparent,
+                transparent
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-10%, -10%); }
+            100% { transform: rotate(30deg) translate(10%, 10%); }
+        }
+        
+        header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--neon-green);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--neon-purple);
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--neon-blue);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav a:hover {
+            color: var(--dark-bg);
+            background-color: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(10, 252, 255, 0.4), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        nav a:hover::before {
+            left: 100%;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: rgba(10, 10, 10, 0.7);
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue), var(--neon-purple));
+        }
+        
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-green);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--neon-green);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        h3:hover::after {
+            transform: scaleX(1);
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .skill-card {
+            padding: 1.5rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(15, 255, 80, 0.3);
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--neon-green);
+            border-radius: 5px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover::before {
+            opacity: 0.7;
+            transform: scale(1.03);
+        }
+        
+        .skill-card h4 {
+            color: var(--neon-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .skill-card p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+        
+        .experience-item {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed rgba(15, 255, 80, 0.3);
+        }
+        
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+        
+        .experience-item h4 {
+            color: var(--neon-blue);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-date {
+            color: var(--neon-purple);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .contact-card {
+            padding: 1.5rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            background-color: rgba(15, 255, 80, 0.05);
+        }
+        
+        .contact-card h4 {
+            color: var(--neon-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .contact-card a {
+            color: var(--neon-green);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card a:hover {
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(15, 255, 80, 0.3);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--neon-purple);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--neon-blue);
+            transform: translateY(-3px);
+        }
+        
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Terminal animation */
+        .terminal {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--neon-green);
+            border-radius: 5px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(15, 255, 80, 0.3);
+        }
+        
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        
+        .terminal-btn.red {
+            background-color: #ff5f56;
+        }
+        
+        .terminal-btn.yellow {
+            background-color: #ffbd2e;
+        }
+        
+        .terminal-btn.green {
+            background-color: #27c93f;
+        }
+        
+        .terminal-title {
+            margin-left: 1rem;
+            color: var(--neon-blue);
+            font-size: 0.8rem;
+        }
+        .terminal-body {
+            line-height: 1.5;
+        }
+        
+        .terminal-line {
+            margin-bottom: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .terminal-prompt {
+            color: var(--neon-green);
+            margin-right: 0.5rem;
+        }
+        
+        .terminal-command {
+            color: var(--neon-blue);
+        }
+        
+        .terminal-output {
+            color: var(--text-color);
+            width: 100%;
+            margin-top: 0.3rem;
+            padding-left: 1.5rem;
+        }
+        
+        /* Binary animation */
+        .binary-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            overflow: hidden;
+        }
+        
+        .binary-digit {
+            position: absolute;
+            color: var(--neon-green);
+            font-size: 1rem;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        /* Hacker images section */
+        .hacker-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .hacker-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            height: 200px;
+            transition: all 0.3s ease;
+        }
+        
+        .hacker-image:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px var(--neon-purple);
+        }
+        
+        .hacker-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .hacker-image:hover img {
+            transform: scale(1.1);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(5, 5, 5, 0.9), transparent);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+        }
+        
+        .hacker-image:hover .image-overlay {
+            transform: translateY(0);
+        }
+        
+        .image-overlay h4 {
+            color: var(--neon-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .image-overlay p {
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+        
+        /* Typewriter effect */
+        .typewriter {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 3px solid var(--neon-green);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 2px;
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--neon-green); }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>HUZII HACKER</h1>
-    <p>aka <strong class="highlight">BLACK WORLD OFFICIAL</strong></p>
-  </header>  <div class="container">
-    <section class="info">
-      <h2>About Me</h2>
-      <p>I am <span class="highlight">HUZII HACKER</span>, known by many as <strong class="highlight">BLACK WORLD OFFICIAL</strong>. I have <strong class="highlight">2 years</strong> of experience in ethical and unethical hacking practices. Learned from <strong class="highlight">Karachi</strong>, I live in the shadows — my address is <em>In Your Mind</em>.</p>
-    </section><section>
-  <h2>Expertise</h2>
-  <ul>
-    <li>Kali Linux Mastery</li>
-    <li>Website Hacking</li>
-    <li>NADRA Data Access</li>
-    <li>SIM Database Lookup</li>
-    <li>Dark Web Analysis</li>
-    <li>Mobile Tracking & Surveillance</li>
-    <li>Network Penetration Testing</li>
-    <li>Social Engineering</li>
-    <li>Bug Hunting & Exploits</li>
-    <li>Python & Bash for Hacking</li>
-  </ul>
-</section>
-
-<section>
-  <h2>Contact Info</h2>
-  <p><strong>Phone:</strong> +92 340 7699974</p>
-  <p><strong>Telegram:</strong> <span class="highlight">@TECHBYHUZII</span></p>
-  <p><strong>Nickname:</strong> BLACK WORLD OFFICIAL</p>
-</section>
-
-<section>
-  <h2>Gallery</h2>
-  <div class="gallery">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Kali-linux-logo.png" alt="Kali Linux" />
-    <img src="https://i.imgur.com/N3n0nYO.jpeg" alt="NADRA Database" />
-    <img src="https://i.imgur.com/y9ISHTF.jpeg" alt="Hacking Code" />
-  </div>
-</section>
-
-  </div>  <footer>
-    &copy; 2025 HUZII HACKER | BLACK WORLD OFFICIAL — All Rights Reserved
-  </footer>
+    <div class="scanlines"></div>
+    <div class="matrix-rain" id="matrixRain"></div>
+    <div class="binary-animation" id="binaryAnimation"></div>
+    
+    <header>
+        <h1 class="glitch-effect neon-text" data-text="HUZII HACKER">HUZII HACKER</h1>
+        <h2 class="neon-text" style="color: var(--neon-purple);">BLACK WORLD OFFICIAL</h2>
+        <p class="tagline neon-text">Penetration Tester | Cybersecurity Expert | Ethical Hacker</p>
+        
+        <nav>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#tools">Tools</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="about">
+            <h3>About Me</h3>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                    <div class="terminal-title">user@huzii-hacker ~</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">whoami</span>
+                    </div>
+                    <div class="terminal-output">
+                        HUZII HACKER | Ethical Hacker with 2 years of experience<br>
+                        Specializing in penetration testing and cybersecurity<br>
+                        Based in Karachi, Pakistan<br>
+                        Known in the underground as BLACK WORLD OFFICIAL
+                    </div>
+                    
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">cat about.txt</span>
+                    </div>
+                    <div class="terminal-output">
+                        I am a passionate cybersecurity professional with expertise in various hacking techniques.<br>
+                        My journey began in the underground hacking communities where I developed my skills.<br>
+                        Now I use my knowledge for ethical hacking and penetration testing to help secure systems.<br><br>
+                        
+                        When I'm not hacking, I contribute to open-source security tools and mentor newcomers.<br>
+                        My motto: "To beat a hacker, you need to think like one."
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="skills">
+            <h3>Skills & Expertise</h3>
+            <div class="skills-grid">
+      <section id="skills">
+            <h3>Skills & Expertise</h3>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h4>Kali Linux</h4>
+                    <p>Advanced penetration testing using Kali tools including Metasploit, Burp Suite, and Wireshark.</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h4>Website Hacking</h4>
+                    <p>Identifying and exploiting vulnerabilities in web applications (SQLi, XSS, CSRF, etc.).</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h4>NADRA Data Security</h4>
+                    <p>Expertise in securing sensitive government databases and preventing unauthorized access.</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h4>Network Penetration</h4>
+                    <p>Advanced network hacking techniques including MITM attacks and wireless network exploitation.</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h4>Malware Analysis</h4>
+                    <p>Reverse engineering and analyzing malicious software to understand attack vectors.</p>
+                </div>
+                
+                <div class="skill-card">
+                    <h4>Social Engineering</h4>
+                    <p>Psychological manipulation techniques to test human vulnerabilities in security systems.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="experience">
+            <h3>Professional Experience</h3>
+            
+            <div class="experience-item">
+                <h4>Senior Ethical Hacker</h4>
+                <p class="experience-date">2022 - Present | Underground Cybersecurity Collective</p>
+                <p>
+                    - Conducted penetration tests for Fortune 500 companies (NDA protected)<br>
+                    - Developed custom exploits for zero-day vulnerabilities<br>
+                    - Trained junior hackers in advanced penetration techniques<br>
+                    - Contributed to open-source security tools used by the hacking community
+                </p>
+            </div>
+            
+            <div class="experience-item">
+                <h4>Security Consultant</h4>
+                <p class="experience-date">2021 - 2022 | Various Clients</p>
+                <p>
+                    - Performed vulnerability assessments for banking systems<br>
+                    - Secured government databases against potential threats<br>
+                    - Created security protocols for sensitive data handling<br>
+                    - Advised on cybersecurity best practices for corporate networks
+                </p>
+            </div>
+            
+            <div class="experience-item">
+                <h4>Independent Researcher</h4>
+                <p class="experience-date">2020 - 2021 | Self-Employed</p>
+                <p>
+                    - Studied advanced hacking techniques through underground forums<br>
+                    - Participated in bug bounty programs (earned over $50,000 in bounties)<br>
+                    - Developed custom scripts for automated vulnerability scanning<br>
+                    - Built a reputation in the ethical hacking community
+                </p>
+            </div>
+        </section>
+        
+        <section id="tools">
+            <h3>Hacker Tools & Technologies</h3>
+            
+            <div class="hacker-images">
+                <div class="hacker-image">
+                    <img src="https://www.kali.org/docs/_images/kali-logo-large.png" alt="Kali Linux">
+                    <div class="image-overlay">
+                        <h4>Kali Linux</h4>
+                        <p>The ultimate penetration testing platform with hundreds of security tools pre-installed.</p>
+                    </div>
+                </div>
+                
+                <div class="hacker-image">
+                    <img src="https://www.metasploit.com/assets/img/metasploit_og_image.png" alt="Metasploit">
+                    <div class="image-overlay">
+                        <h4>Metasploit Framework</h4>
+                        <p>World's most used penetration testing tool for developing and executing exploit code.</p>
+                    </div>
+                </div>
+                
+                <div class="hacker-image">
+                    <img src="https://portswigger.net/cms/images/47/13/2a08-twitter-card.png" alt="Burp Suite">
+                    <div class="image-overlay">
+                        <h4>Burp Suite</h4>
+                        <p>Leading web application security testing software with advanced scanning capabilities.</p>
+                    </div>
+                </div>
+                
+                <div class="hacker-image">
+                    <img src="https://www.wireshark.org/assets/images/wireshark_logo@2x.png" alt="Wireshark">
+                    <div class="image-overlay">
+                        <h4>Wireshark</h4>
+                        <p>World's foremost network protocol analyzer for troubleshooting and analysis.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="terminal" style="margin-top: 2rem;">
+                <div class="terminal-header">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                    <div class="terminal-title">user@huzii-hacker ~/tools</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">ls -la</span>
+                    </div>
+                    <div class="terminal-output">
+                  <div class="terminal-output">
+                        drwxr-xr-x  2 root root 4096 Jan 10 14:30 .<br>
+                        drwxr-xr-x 18 root root 4096 Jan 10 14:30 ..<br>
+                        -rwxr-xr-x  1 root root    0 Jan 10 14:30 aircrack-ng<br>
+                        -rwxr-xr-x  1 root root    0 Jan 10 14:30 john<br>
+                        -rwxr-xr-x  1 root root    0 Jan 10 14:30 nmap<br>
+                        -rwxr-xr-x  1 root root    0 Jan 10 14:30 sqlmap<br>
+                        -rwxr-xr-x  1 root root    0 Jan 10 14:30 hydra<br>
+                        -rwxr-xr-x  1 root root    0 Jan 10 14:30 maltego<br>
+                        -rwxr-xr-x  1 root root    0 Jan 10 14:30 ettercap<br>
+                        -rwxr-xr-x  1 root root    0 Jan 10 14:30 metasploit<br>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <h3>Contact Information</h3>
+            <p>Feel free to reach out for security consultations, penetration testing, or just to chat about cybersecurity.</p>
+            
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h4>Address</h4>
+                    <p>IN YOUR MIND</p>
+                </div>
+                
+                <div class="contact-card">
+                    <h4>Phone</h4>
+                    <p><a href="tel:923407699974">+92 340 7699974</a></p>
+                </div>
+                
+                <div class="contact-card">
+                    <h4>Telegram</h4>
+                    <p><a href="https://t.me/TECHBYHUZII" target="_blank">@TECHBYHUZII</a></p>
+                </div>
+                
+                <div class="contact-card">
+                    <h4>Underground Channels</h4>
+                    <p>Ask for access via Telegram (BLACK WORLD OFFICIAL)</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 HUZII HACKER (BLACK WORLD OFFICIAL). All rights reserved.</p>
+        <p>This portfolio is for demonstration purposes only.</p>
+        
+        <div class="social-links">
+            <a href="#" title="GitHub">GH</a>
+            <a href="#" title="Twitter">TW</a>
+            <a href="https://t.me/TECHBYHUZII" title="Telegram">TG</a>
+            <a href="#" title="Keybase">KB</a>
+        </div>
+    </footer>
+    
+    <script>
+        // Matrix rain effect
+        const matrixRain = document.getElementById('matrixRain');
+        const chars = "01";
+        const fontSize = 14;
+        const columns = Math.floor(window.innerWidth / fontSize);
+        
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+        
+        function drawMatrix() {
+            const ctx = matrixRain.getContext('2d');
+            matrixRain.width = window.innerWidth;
+            matrixRain.height = window.innerHeight;
+            
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.05)';
+            ctx.fillRect(0, 0, matrixRain.width, matrixRain.height);
+            
+            ctx.fillStyle = '#0fff50';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > matrixRain.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+        
+        // Binary animation
+        const binaryAnimation = document.getElementById('binaryAnimation');
+        
+        function createBinaryDigit() {
+            const digit = document.createElement('div');
+            digit.className = 'binary-digit';
+            digit.textContent = Math.random() > 0.5 ? '1' : '0';
+            digit.style.left = Math.random() * 100 + 'vw';
+            digit.style.animationDuration = (Math.random() * 5 + 3) + 's';
+            digit.style.animationDelay = Math.random() * 2 + 's';
+            binaryAnimation.appendChild(digit);
+            
+            setTimeout(() => {
+                digit.remove();
+            }, parseFloat(digit.style.animationDuration) * 1000);
+        }
+        
+        // Initialize animations
+        if (matrixRain.getContext) {
+            setInterval(drawMatrix, 50);
+            setInterval(createBinaryDigit, 100);
+        }
+        
+        // Typewriter effect for terminal
+        const terminalLines = document.querySelectorAll('.terminal-command');
+        terminalLines.forEach((line, index) => {
+            setTimeout(() => {
+                line.style.animation = 'typing 2s steps(40, end)';
+            }, index * 2500);
+        });
+        
+        // Glitch effect on hover for section titles
+        const sectionTitles = document.querySelectorAll('h3');
+        sectionTitles.forEach(title => {
+            title.addEventListener('mouseenter', () => {
+                title.classList.add('glitch-effect');
+            });
+            
+            title.addEventListener('mouseleave', () => {
+                title.classList.remove('glitch-effect');
+            });
+        });
+    </script>
 </body>
 </html>
+          
+      
